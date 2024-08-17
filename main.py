@@ -5,16 +5,6 @@ from utils.filehandler import create_dir, write_lines_to_file
 
 domain = "cargurus.com"
 
-wildcard = [
-        "*.dev.api.cargurus.com",
-        "*.stage.api.cargurus.com",
-        "*.code.cargurus.com",
-        "*.api.cargurus.com",
-        "*.cargurus.com",
-        "*.stage.cargurus.com",
-        "*.ca.cargurus.com"
-    ]
-
 def main():
     crtsh_helper = CrtShHelper(domain=domain)
     data = crtsh_helper.fetch_domains()
@@ -25,8 +15,13 @@ def main():
 
     write_lines_to_file(data=subdomains, path=f"{crt_out_dir_path}/subdomains.txt")
     wild_cards = data.get("wildcards")
-    write_lines_to_file(data=subdomains, path=f"{crt_out_dir_path}/wild_cards.txt")
+    write_lines_to_file(data=wild_cards, path=f"{crt_out_dir_path}/wild_cards.txt")
 
+
+    dns_bruteforce_helper = DNSBruteforceHelper(resolvers_path="", 
+                                                domains_path="", 
+                                                wordlist_path="", 
+                                                output_parent_dir="")
 
 
     # dns_bruteforce_helper = DNSBruteforceHelper(wildcard)
