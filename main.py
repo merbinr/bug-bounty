@@ -18,10 +18,11 @@ def main():
     write_lines_to_file(data=wild_cards, path=f"{crt_out_dir_path}/wild_cards.txt")
 
 
-    dns_bruteforce_helper = DNSBruteforceHelper(resolvers_path="", 
-                                                domains_path="", 
-                                                wordlist_path="", 
-                                                output_parent_dir="")
+    dns_bruteforce_helper = DNSBruteforceHelper(resolvers_path="data/dns_bruteforce/resolvers.txt", 
+                                                domains_path=f"{crt_out_dir_path}/wild_cards.txt", 
+                                                wordlist_path="data/dns_bruteforce/wordlist.txt", 
+                                                output_parent_dir=f"output/{domain}/dns_bruteforce")
+    dns_bruteforce_helper.perform_bruteforce()
 
 
     # dns_bruteforce_helper = DNSBruteforceHelper(wildcard)

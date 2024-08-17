@@ -1,4 +1,4 @@
-working_dir = ~/bugbounty
+working_dir="/home/ubuntu/bug-bounty"
 mkdir -p $working_dir
 
 if ! command -v puredns >/dev/null 2>&1; then
@@ -33,14 +33,16 @@ fi
 cd $working_dir
 
 # Download and filter valid resolvers, if resolvers.txt not found or older than 24hr, create new one
-resolvers_filename="data/dnsbruteforce/resolvers.txt"
+resolvers_filename="data/dns_bruteforce/resolvers.txt"
+mkdir -p "data/dns_bruteforce"
 if [ ! -f "$resolvers_filename" ] || [ $(find "$resolvers_filename" -mmin +1440) ]; then
     echo "$resolvers_filename.txt not found or older than 24 hours. Downloading..."
     dnsvalidator -tL https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-community.txt -threads 100 -o $resolvers_filename
+fi
 
 # Download DNS bruteforce wordlist if not exist
-wordlist_filename="data/dnsbruteforce/wordlist.txt"
+wordlist_filename="data/dns_bruteforce/wordlist.txt"
 if [ ! -f "$filename" ]; then
-echo "$wordlist_filename not found or older than 24 hours. Downloading..."
+    echo "$wordlist_filename not found or older than 24 hours. Downloading..."
     wget "https://github.com/n0kovo/n0kovo_subdomains/raw/main/n0kovo_subdomains_huge.txt" -O $wordlist_filename
-
+fi
